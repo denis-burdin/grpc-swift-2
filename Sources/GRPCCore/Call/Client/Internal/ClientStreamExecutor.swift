@@ -98,13 +98,6 @@ internal enum ClientStreamExecutor: Sendable {
     }.castOrConvertRPCError { other in
       RPCError(code: .unknown, message: "Write failed.", cause: other)
     }
-
-    switch result {
-    case .success:
-      await stream.finish()
-    case .failure(let error):
-      await stream.finish(throwing: error)
-    }
   }
 
   @usableFromInline
